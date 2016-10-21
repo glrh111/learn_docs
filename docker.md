@@ -50,7 +50,7 @@
 
 * `sudo docker run -d --name redis redis:3`
 
-* `sudo docker run -itd --name solodev --link redis:redis --link mongo:mongo -v ~monpy/codes:/home/solodev/workspace -p 20000:22  registry.ahaflow.com:5000/solo/dev`
+* `sudo docker run -itd --name solodev --link redis:redis --link mongo:mongo -v ~glrh11/codes:/home/solodev/workspace -p 20000:22 -p 80:80  registry.ahaflow.com:5000/solo/dev`
 
 * `#docker exec -i bb2 /bin/sh`
 
@@ -75,3 +75,36 @@
 7. test
 
 * http://kittyapi.com/_/ping
+
+8. export as my own image
+
+* `docker export solodev > solodev.tar` or:
+
+* `docker save -o ubuntu_14.04.tar ubuntu:14.04` or:
+
+* all of the top two have the same V
+
+8. problems
+
+* `static` files couldn't be found: solodev/app.py
+
+* nginx configration related:
+
+> `liveadmin/misc/config/_user/solodev.py`
+
+> and `make.py` create configuration with it
+
+9. create a adminUser
+
+* SECRET = "53BZTNaYKbcW3bZmO651"  passwd='wangli'  passwd_enc = 'a613e95feab44e6a77e86a3a9b580e3a'
+
+* username = 'wangli'  password = 'wangli'
+
+* db.adminUser.insert({'user_id':10,   username:'wangli6' , password : 'a613e95feab44e6a77e86a3a9b580e3a', 'level':1, 'status': 10})
+
+
+* data server -v ~monpy/codes:/home/solodev/workspace
+
+docker run --name save_daily_report -v /home/centos/data:/data --rm  --env-file /home/centos/kittyapi.env registry.ahaflow.com:5000/solo/kitty-live-admin-runtime-online:569 python /home/runtime/liveadmin/app/liveadmin/misc/crontab/save_daily_report.py
+
+docker run -itd --name rank_script_test2 -v /home/centos/data:/data -P --env-file kittyapi.env registry.ahaflow.com:5000/solo/kitty-api-runtime-online:latest bash
