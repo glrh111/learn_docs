@@ -108,3 +108,16 @@
 docker run --name save_daily_report -v /home/centos/data:/data --rm  --env-file /home/centos/kittyapi.env registry.ahaflow.com:5000/solo/kitty-live-admin-runtime-online:569 python /home/runtime/liveadmin/app/liveadmin/misc/crontab/save_daily_report.py
 
 docker run -itd --name rank_script_test2 -v /home/centos/data:/data -P --env-file kittyapi.env registry.ahaflow.com:5000/solo/kitty-api-runtime-online:latest bash
+
+* sudo docker run -itd --name framework_study --link redis:redis --link mongo:mongo -v ~glrh11/codes:/home/solodev/workspace -p 20001:22 -p 8888:8888  solodev:v4 /bin/bash
+
+image = 'http://s3-us-west-2.amazonaws.com/solomedia/image/default/avatar/a92aa9569522f2bd5c5c6882a6099738.png'
+
+kitty_id: 53775385
+64115341
+
+db.user.update({kitty_id: 53775385}, {$set: {'avatar_url': image, 'thumbnail': {'120_120': image, '360_360':image, '720_720': image}}})
+db.user.update({kitty_id: 64948154}, {$set: {'avatar_url': image, 'thumbnail': {'120_120': image, '360_360':image, '720_720': image}}})
+
+
+/home/runtime/sololive/app/liveapi/misc/crontab/event201610/refresh_rank_list.py 16 10

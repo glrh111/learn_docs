@@ -137,5 +137,22 @@
 
 ### 5.1.1 composed indexes introduction
 
-* 
+* chaxun
+chaxun = function (user_list) { for(var i=0;i < user_list.length;i++ ){user = db.user.findOne({kitty_id: user_list[i]}); print(user_list[i] + ' ' + user.user_id)} }
 
+db.giftRecord.aggregate([ {$match: {gift_id:24, t_send: {'$gte': 1476982800000, '$lt': 1477328400000} }} , {$group: { '_id': null, 'count': {'$sum': '$moon'} }} ])
+db.giftRecord.aggregate([ {$match: {gift_id:44, t_send: {'$gte': 1476982800000, '$lt': 1477328400000} }} , {$group: { '_id': null, 'count': {'$sum': '$moon'} }} ])
+db.giftRecord.aggregate([ {$match: {t_send: {'$gte': 1476982800000, '$lt': 1477328400000} }} , {$group: { '_id': null, 'count': {'$sum': '$moon'} }} ])
+db.giftRecord.aggregate([ {$match: {t_send: {'$gte': 1476723600000, '$lt': 1476982800000} }} , {$group: { '_id': null, 'count': {'$sum': '$moon'} }} ])
+
+2016-10-25 ~ 2016-11-03 both days : 
+time_limit = {t_send: {'$gte': 1477328400000, '$lt': 1478192400000} }
+db.giftRecord.distinct('to_id',  time_limit).length : for 4850
+db.giftRecord.distinct('from_id', time_limit).length : for user 6591
+db.giftRecord.aggregate([ {$match: time_limit} , {$group: { '_id': null, 'count': {'$sum': '$moon'} }} ])  : 5490184
+
+
+Live  [------------------------------------]  2/77Miss: could not find user, skip live - [1876234]
+Live  [####--------------------------------]  9/77Miss: could not find user, skip live - [1877285]
+Live  [#################################---]  72/77Miss: could not find user, skip live - [1879899]
+Live  [####################################]  77/77
