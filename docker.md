@@ -121,3 +121,20 @@ db.user.update({kitty_id: 64948154}, {$set: {'avatar_url': image, 'thumbnail': {
 
 
 /home/runtime/sololive/app/liveapi/misc/crontab/event201610/refresh_rank_list.py 16 10
+
+docker run -itd --name event201611_user -v /home/centos/data:/data -P --env-file kittyapi.env registry.ahaflow.com:5000/solo/kitty-api-runtime-online:latest python /home/runtime/sololive/app/liveapi/misc/crontab/event201610/refresh_rank_list.py 4 300
+
+
+docker run -d --name rank_script -P --restart=always --env-file kittyapi.env registry.ahaflow.com:5000/solo/kitty-api-runtime-online:latest python /home/runtime/sololive/app/liveapi/misc/crontab/event201610/rank_list_for_2016-10_64.py
+
+注意更新controller/rank.py及refresh_rank_list.py文件
+
+启动8进4的命令，代码在event分支上
+docker run -itd --name event201611_user -v /home/centos/data:/data -P --env-file kittyapi.env registry.ahaflow.com:5000/solo/kitty-api-runtime-online:latest python /home/runtime/sololive/app/liveapi/misc/crontab/event201610/refresh_rank_list.py 4 300
+
+
+
+启动月度排行的命令，代码在一个新分支上
+docker run -itd --name monthly_rank -v /home/centos/data:/data -P --env-file kittyapi.env registry.ahaflow.com:5000/solo/kitty-api-runtime-online:latest python /home/runtime/sololive/app/liveapi/misc/crontab/event201610/refresh_rank_list.py 16 300
+
+将redis里面的month_rank_list_dated_key设置过期时间为非常长，非常长～～～～～
